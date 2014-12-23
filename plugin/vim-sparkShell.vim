@@ -4,6 +4,7 @@ let g:tmuxsname = "Spark"
 if !exists("g:termcmd")
   let g:termcmd   = "gnome-terminal --title Spark-shell -e"
 endif
+let g:inPasteMode = 0
 
 function WarningMsg(wmsg)
     echohl WarningMsg
@@ -32,5 +33,21 @@ function StartSparkShell(extraSparkShellArgs)
     return
   endif
 
+  return
+endfunction
+
+function SparkShellEnterPasteEnv()
+  let g:inPasteMode = 1
+  call tbone#send_keys("0", ":paste\r")
+  return
+endfunction
+
+function SparkShellExitPasteEnv()
+  if g:inPasteMode == 1
+    let g:inPasteMode = 0
+    call tbone#send_keys("0", "C-d")
+  else
+    echom "Not in paste mode"
+  endif
   return
 endfunction

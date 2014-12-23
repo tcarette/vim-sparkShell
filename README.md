@@ -1,8 +1,8 @@
 # vim-sparkShell
 
 This is a very first, basic step for integrating the spark shell with vim.
-So far it allows to start a spark shell in tmux. Then vim-tbone is used to
-send lines to it.
+So far it allows to start a spark shell in tmux, then vim-tbone is used to
+send lines to it. There are also functions to enter and exit paste mode.
 
 It's just the minimum for what I wanted. I don't know how far it will
 evolve but I thought that maybe somebody might already think it's useful,
@@ -43,6 +43,8 @@ included. e.g.
 * Maps
 
 		map <startMap>       :call StartSparkShell("")<CR>
+		map <enter paste>    :call SparkShellEnterPasteEnv()<CR>
+		map <exit paste>     :call SparkShellExitPasteEnv()<CR>
 		map <killMap>        :call system("tmux kill-session")<CR>
 		map <sendLine(s)Map> :Twrite 0<CR>`
 		
