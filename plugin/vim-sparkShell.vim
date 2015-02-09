@@ -2,7 +2,7 @@
 let g:tmuxcnf   = '-f "' . $HOME . "/.tmux.conf" . '"'
 let g:tmuxsname = "Spark"
 if !exists("g:termcmd")
-  let g:termcmd   = "gnome-terminal --title Spark-shell -e"
+  let g:termcmd   = "gnome-terminal --title Spark-shell -e "
 endif
 let g:inPasteMode = 0
 
@@ -19,7 +19,7 @@ function StartSparkShell(extraSparkShellArgs)
   else
     let jarIncl = ""
   endif
-  let sparkCall = g:sparkHome . "/bin/spark-shell " . jarIncl . a:extraSparkShellArgs
+  let sparkCall = g:sparkHome . "/bin/spark-shell " . jarIncl . " " . a:extraSparkShellArgs
 
   " Start spark shell in tmux
   let opencmd   = printf("%s 'tmux -2 %s new-session -s %s \"%s\"' &", 

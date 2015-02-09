@@ -42,11 +42,12 @@ included. e.g.
 
 * Maps
 
-		map <startMap>       :call StartSparkShell("")<CR>
-		map <enter paste>    :call SparkShellEnterPasteEnv()<CR>
-		map <exit paste>     :call SparkShellExitPasteEnv()<CR>
-		map <killMap>        :call system("tmux kill-session")<CR>
-		map <sendLine(s)Map> :Twrite 0<CR>`
+		map <startMap>        :call StartSparkShell("")<CR>
+		map <enter paste>     :call SparkShellEnterPasteEnv()<CR>
+		map <sendLine(s)Map>  :Twrite 0<CR>`
+
+		nmap <exit paste>     :call SparkShellExitPasteEnv()<CR>
+		nmap <killMap>        :call system("tmux kill-session")<CR>
 		
 StartSparkShell is the only function provided by vim-sparkShell so far. It takes extra options for
 the spark shell call. Twrite is provided by vim-tbone. This can be changed by putting and editing
