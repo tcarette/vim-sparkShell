@@ -50,7 +50,7 @@ included. e.g.
 		nmap <killMap>        :call system("tmux kill-session")<CR>
     nmap <sendWord>       :call tbone#send_keys("0","<C-R><C-W>\r")<CR> 
 
-    vmap <sendSelection> y:call tbone#send_keys("0","<C-R>0\r")<CR>
+    vmap <sendSelection> y:call tbone#send_keys("0",substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
 		
 StartSparkShell is the only function provided by vim-sparkShell so far. It takes extra options for
 the spark shell call. Twrite is provided by vim-tbone. This can be changed by putting and editing
