@@ -6,12 +6,12 @@ if !exists("g:termcmd")
 endif
 let g:inPasteMode = 0
 
-function WarningMsg(wmsg)
+function! WarningMsg(wmsg)
     echohl WarningMsg
     echomsg a:wmsg
     echohl Normal
 endfunction
-function StartSparkShell(extraSparkShellArgs)
+function! StartSparkShell(extraSparkShellArgs)
 
   " Take jars from directory
   if exists("g:jarDir")
@@ -36,18 +36,34 @@ function StartSparkShell(extraSparkShellArgs)
   return
 endfunction
 
-function SparkShellEnterPasteEnv()
-  let g:inPasteMode = 1
-  call tbone#send_keys("0", ":paste\r")
+function! SparkShellEnterPasteEnv()
+  if g:inPasteMode == 0
+    let g:inPasteMode = 1
+    call tbone#send_keys("0", ":paste\r")
+  endif
   return
 endfunction
 
-function SparkShellExitPasteEnv()
+function! SparkShellExitPasteEnv()
   if g:inPasteMode == 1
-    let g:inPasteMode = 0
     call tbone#send_keys("0", "C-d")
+    let g:inPasteMode = 0
   else
     echom "Not in paste mode"
   endif
+  return
+endfunction
+
+function! SparkShellSendMultiLine() range
+  call SparkShellEnterPasteEnv()
+  for ind in range(a:firstline,a:lastline)
+    if len(getline(ind)) > 0
+      " stupid way of getting first non-white space character of the line
+      if split(getline(ind))[0][0]!~'/\|*'
+        execute ind "Twrite 0"
+      endif
+    endif
+  endfor
+  call SparkShellExitPasteEnv()
   return
 endfunction
