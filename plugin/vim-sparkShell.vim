@@ -60,7 +60,7 @@ function! SparkShellSendMultiLine() range
     if len(getline(ind)) > 0
       " stupid way of getting first non-white space character of the line
       if split(getline(ind))[0][0]!~'/\|*'
-        execute ind "Twrite 0"
+        execute "silent" ind "Twrite 0"
       endif
     endif
   endfor
