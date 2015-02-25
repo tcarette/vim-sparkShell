@@ -22,7 +22,7 @@ function! StartSparkShell(extraSparkShellArgs)
   let sparkCall = g:sparkHome . "/bin/spark-shell " . jarIncl . " " . a:extraSparkShellArgs
 
   " Start spark shell in tmux
-  let opencmd   = printf("%s 'tmux -2 %s new-session -s %s \"%s\"' &", 
+  let opencmd   = printf("%s 'tmux -2 %s new-session -s %s \"%s\"' & google-chrome --app=http://localhost:4040/", 
         \                 g:termcmd,  
         \                 g:tmuxcnf, 
         \                 g:tmuxsname,
