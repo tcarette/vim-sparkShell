@@ -16,9 +16,13 @@ Note: these are my first vimscript lines and I just discovered tmux...
 * spark-shell  (tested with version 1.2.0)
 * vim-tbone of Tim Pope. I [forked](https://github.com/tcarette/vim-tbone)
 it to add a carriage return to lines sent to the shell.
+* google-chrome (hardcoded in StartSparkShell for opening the jobs)
 
 Tested only with gvim. Note that the use of `gnome-terminal` is also
-hard-coded in the plugin.
+hard-coded in the plugin. This can be changed by putting and editing the
+following variable definition in your vimrc
+
+    let g:termcmd   = "gnome-terminal --title Spark-shell -e"
 
 ## Installation and usage
 
@@ -44,7 +48,7 @@ included. e.g.
 
 		map <startMap>                  :call StartSparkShell("")<CR>
 		map <enter paste>               :call SparkShellEnterPasteEnv()<CR>
-		map <sendLine(s)Map>            :Twrite 0<CR>`
+		map <sendLine(s)Map>            :Twrite 0<CR>
     map <sendAll>                   :silent 1,$ call SparkShellSendMultiLine() <CR>
 
 		nmap <exit paste>               :call SparkShellExitPasteEnv()<CR>
@@ -54,8 +58,11 @@ included. e.g.
     vmap <sendSelectionPerChar>    y:call tbone#send_keys("0",substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
     vmap <sendSelectionPerLine>     :call SparkShellSendMultiLine() <CR>
 
-StartSparkShell is the only function provided by vim-sparkShell so far. It takes extra options for
-the spark shell call. Twrite is provided by vim-tbone. This can be changed by putting and editing
-the following variable definition in your vimrc
+    nmap <countObjectUnderCursor>   :call tbone#send_keys("0","<C-R><C-W>.count\r")<CR><Esc>
+    nmap <take5ObjectUnderCursor>   :call tbone#send_keys("0","<C-R><C-W>.take(5).foreach(println)\r")<CR><Esc>
+    nmap <seeObjectUnderCursor>     :call tbone#send_keys("0","<C-R><C-W>\r")<CR><Esc>
+    vmap <seeObjectUnderCursor>    y:call tbone#send_keys("0",substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
 
-    let g:termcmd   = "gnome-terminal --title Spark-shell -e"
+
+StartSparkShell takes extra options for the spark shell call.
+Twrite is provided by vim-tbone.
