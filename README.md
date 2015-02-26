@@ -49,19 +49,19 @@ included. e.g.
 		map <startMap>                  :call StartSparkShell("")<CR>
 		map <enter paste>               :call SparkShellEnterPasteEnv()<CR>
 		map <sendLine(s)Map>            :Twrite 0<CR>
-    map <sendAll>                   :silent 1,$ call SparkShellSendMultiLine() <CR>
+		map <sendAll>                   :silent 1,$ call SparkShellSendMultiLine() <CR>
 
 		nmap <exit paste>               :call SparkShellExitPasteEnv()<CR>
 		nmap <killMap>                  :call system("tmux kill-session")<CR>
-    nmap <sendWord>                 :call tbone#send_keys("0","<C-R><C-W>\r")<CR> 
+		nmap <sendWord>                 :call tbone#send_keys("0","<C-R><C-W>\r")<CR> 
 
-    vmap <sendSelectionPerChar>    y:call tbone#send_keys("0",substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
-    vmap <sendSelectionPerLine>     :call SparkShellSendMultiLine() <CR>
+		vmap <sendSelectionPerChar>    y:call tbone#send_keys("0",substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
+		vmap <sendSelectionPerLine>     :call SparkShellSendMultiLine() <CR>
 
-    nmap <countObjectUnderCursor>   :call tbone#send_keys("0","<C-R><C-W>.count\r")<CR><Esc>
-    nmap <take5ObjectUnderCursor>   :call tbone#send_keys("0","<C-R><C-W>.take(5).foreach(println)\r")<CR><Esc>
-    nmap <seeObjectUnderCursor>     :call tbone#send_keys("0","<C-R><C-W>\r")<CR><Esc>
-    vmap <seeObjectUnderCursor>    y:call tbone#send_keys("0",substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
+		nmap <countObjectUnderCursor>   :call tbone#send_keys("0","<C-R><C-W>.count\r")<CR><Esc>
+		nmap <take5ObjectUnderCursor>   :call tbone#send_keys("0","<C-R><C-W>.take(5).foreach(println)\r")<CR><Esc>
+		nmap <seeObjectUnderCursor>     :call tbone#send_keys("0","<C-R><C-W>\r")<CR><Esc>
+		vmap <seeObjectUnderCursor>    y:call tbone#send_keys("0",substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
 
 
 StartSparkShell takes extra options for the spark shell call.
