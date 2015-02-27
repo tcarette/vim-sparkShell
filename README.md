@@ -24,6 +24,8 @@ following variable definition in your vimrc
 
     let g:termcmd   = "gnome-terminal --title Spark-shell -e"
 
+Extra tip: I forked the [vim-scaladoc](https://github.com/mdreves/vim-scaladoc) of [mdreves](https://github.com/mdreves) to include Spark's scala doc in the index ([here](https://github.com/tcarette/vim-scaladoc))
+
 ## Installation and usage
 
 Install the above dependencies.
