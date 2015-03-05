@@ -1,10 +1,6 @@
 " Interact with spark shell quick and dirty
-let g:tmuxcnf   = '-f "' . $HOME . "/.tmux.conf" . '"'
+let g:tmuxcnf   = '-f \"' . $HOME . "/.tmux.conf" . '\"'
 let g:tmuxsname = "Spark"
-if !exists("g:termcmd")
-  let g:termcmd   = "gnome-terminal --title Spark-shell -e "
-endif
-let g:inPasteMode = 0
 
 function! WarningMsg(wmsg)
     echohl WarningMsg
@@ -13,20 +9,35 @@ function! WarningMsg(wmsg)
 endfunction
 function! StartSparkShell(extraSparkShellArgs)
 
-  " Take jars from directory
-  if exists("g:jarDir")
-    let jarIncl="--jars " . join(split(globpath(g:jarDir,'*.jar'),'\n'),',') 
-  else
-    let jarIncl = ""
-  endif
-  let sparkCall = g:sparkHome . "/bin/spark-shell " . jarIncl . " " . a:extraSparkShellArgs
+	" Take jars from directory
+	if exists("g:jarDir")
+	  let jarIncl="--jars " . join(split(globpath(g:jarDir,'*.jar'),'\n'),',') 
+	else
+	  let jarIncl = ""
+	endif
+	let sparkCall = g:sparkHome . "/bin/spark-shell " . jarIncl . " " . a:extraSparkShellArgs
+	let tmuxCall  = printf('tmux -2 %s new-session -s %s \"%s\"', 
+	        \                 g:tmuxcnf, 
+	        \                 g:tmuxsname,
+	        \                 sparkCall)
+	
+	" open terminal and google chrome / gnome and osx
+	if has("mac") || has("macunix")
+	  if !exists("g:termcmd")
+	    let g:termcmd   = "osascript -e 'tell application \"Terminal\" to activate' -e 'tell application \"Terminal\" to do script \"".tmuxCall."\"'"
+	  endif
+	  let s:openchrome = "& /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --app=http://localhost:4040/"
+	else
+	  if !exists("g:termcmd")
+	    let g:termcmd   = "gnome-terminal --title Spark-shell -e " . tmuxCall
+	  endif
+	  let s:openchrome = "& google-chrome --app=http://localhost:4040/"
+	endif
+	let g:inPasteMode = 0
+	
 
   " Start spark shell in tmux
-  let opencmd   = printf("%s 'tmux -2 %s new-session -s %s \"%s\"' & google-chrome --app=http://localhost:4040/", 
-        \                 g:termcmd,  
-        \                 g:tmuxcnf, 
-        \                 g:tmuxsname,
-        \                 sparkCall)
+  let opencmd   = g:termcmd . " " . s:openchrome
   let log = system(opencmd)
   if v:shell_error
     call WarningMsg(log)
