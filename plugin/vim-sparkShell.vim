@@ -1,6 +1,7 @@
 " Interact with spark shell quick and dirty
 let g:tmuxcnf   = '-f \"' . $HOME . "/.tmux.conf" . '\"'
 let g:tmuxsname = "Spark"
+let g:inPasteMode = 0
 
 function! WarningMsg(wmsg)
     echohl WarningMsg
@@ -33,8 +34,6 @@ function! StartSparkShell(extraSparkShellArgs)
 	  endif
 	  let s:openchrome = "& google-chrome --app=http://localhost:4040/"
 	endif
-	let g:inPasteMode = 0
-	
 
   " Start spark shell in tmux
   let opencmd   = g:termcmd . " " . s:openchrome
