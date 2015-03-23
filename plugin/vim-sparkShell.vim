@@ -9,7 +9,6 @@ function! WarningMsg(wmsg)
     echohl Normal
 endfunction
 function! StartSparkShell(extraSparkShellArgs)
-
 	" Take jars from directory
 	if exists("g:jarDir")
 	  let jarIncl="--jars " . join(split(globpath(g:jarDir,'*.jar'),'\n'),',') 
@@ -42,6 +41,9 @@ function! StartSparkShell(extraSparkShellArgs)
     call WarningMsg(log)
     return
   endif
+
+  " attach specific session to avoid conflict with, e.g., Vim-R sessions
+  call tbone#attach_command(g:tmuxsname)
 
   return
 endfunction
