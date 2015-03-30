@@ -14,8 +14,8 @@ Note: these are my first vimscript lines and I just discovered tmux...
 
 * tmux         (tested with version 1.9)
 * spark-shell  (tested with version 1.2.0)
-* vim-tbone of Tim Pope. I [forked](https://github.com/tcarette/vim-tbone)
-it to add a carriage return to lines sent to the shell.
+* vim-tbone of Tim Pope or [vimux](https://github.com/benmills/vimux.git). In a quick and dirty impulse, I [forked](https://github.com/tcarette/vim-tbone)
+tbone to add a carriage return to lines sent to the shell.
 * google-chrome (hardcoded in StartSparkShell for opening the jobs)
 
 Tested only with gvim. Note that the use of `gnome-terminal` is also
@@ -46,25 +46,28 @@ included. e.g.
 
 		let g:sparkHome = $HOME."/bin/spark/"
 
+* This option allows to use this vim-sparkShell from within tmux using the vimux plugin. This offers a more portable solution to communicating between vim and the spark shell.
+
+    let g:inTmux         = 1
+
 * Useful mappings
 
 		map <startMap>                  :call StartSparkShell("")<CR>
 		map <enter paste>               :call SparkShellEnterPasteEnv()<CR>
-		map <sendLine(s)Map>            :Twrite 0<CR>
+		map <sendLine(s)Map>            :call SparkShellSendMultiLine() <CR>
 		map <sendAll>                   :silent 1,$ call SparkShellSendMultiLine() <CR>
 
 		nmap <exit paste>               :call SparkShellExitPasteEnv()<CR>
-		nmap <killMap>                  :call system("tmux kill-session")<CR>
-		nmap <sendWord>                 :call tbone#send_keys("0","<C-R><C-W>\r")<CR> 
+		nmap <killMap>                  :call StopSparkShell()<CR>
+		nmap <sendWordUnderCursor>      :call SparkShellSendKey("<C-R><C-W>\r")<CR> 
 
-		vmap <sendSelectionPerChar>    y:call tbone#send_keys("0",substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
+		vmap <sendSelectionPerChar>    y:call SparkShellSendKey(substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
 		vmap <sendSelectionPerLine>     :call SparkShellSendMultiLine() <CR>
 
-		nmap <countObjectUnderCursor>   :call tbone#send_keys("0","<C-R><C-W>.count\r")<CR><Esc>
-		nmap <take5ObjectUnderCursor>   :call tbone#send_keys("0","<C-R><C-W>.take(5).foreach(println)\r")<CR><Esc>
-		nmap <seeObjectUnderCursor>     :call tbone#send_keys("0","<C-R><C-W>\r")<CR><Esc>
-		vmap <seeObjectUnderCursor>    y:call tbone#send_keys("0",substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
+		nmap <countObjectUnderCursor>   :call SparkShellSendKey("<C-R><C-W>.count\r")<CR><Esc>
+		nmap <take5ObjectUnderCursor>   :call SparkShellSendKey("<C-R><C-W>.take(5).foreach(println)\r")<CR><Esc>
+		nmap <seeObjectUnderCursor>     :call SparkShellSendKey("<C-R><C-W>\r")<CR><Esc>
+		vmap <seeObjectUnderCursor>    y:call SparkShellSendKey(substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
 
 
 StartSparkShell takes extra options for the spark shell call.
-Twrite is provided by vim-tbone.
