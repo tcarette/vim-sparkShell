@@ -71,3 +71,7 @@ included. e.g.
 
 
 StartSparkShell takes extra options for the spark shell call.
+
+## Miscellaneous
+
+* Using mintty terminal with cygwin, selecting option "backspace sends ^H" in keys might be necessary
