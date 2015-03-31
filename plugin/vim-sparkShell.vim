@@ -18,7 +18,11 @@ function! StartSparkShell(extraSparkShellArgs)
 	if exists("g:jarDir")
     let jarsList = join(split(globpath(g:jarDir,'*.jar'),'\n'),',') 
     if (jarsList != "")
-	    let jarIncl="--jars " . join(split(globpath(g:jarDir,'*.jar'),'\n'),',') 
+      if executable("cygpath")
+	      let jarIncl="--jars " . join(map(split(globpath(g:jarDir,'*.jar'),'\n'),'"/cygwin64" . v:val'),',')
+      else
+	      let jarIncl="--jars " . join(split(globpath(g:jarDir,'*.jar'),'\n'),',') 
+      endif
     endif
 	endif
 	let sparkCall = g:sparkHome . "/bin/spark-shell " . jarIncl . " " . a:extraSparkShellArgs
