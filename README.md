@@ -42,9 +42,9 @@ included. e.g.
 
 		let g:jarDir    = $WORKDIR."/lib/"
 
-* Specifies spark home directory. e.g.
+* Specifies spark path. e.g.
 
-		let g:sparkHome = $HOME."/bin/spark/"
+		let g:sparkShellPath = $HOME."/bin/spark/bin/spark-shell"
 
 * This option allows to use this vim-sparkShell from within tmux using the vimux plugin. This offers a more portable solution to communicating between vim and the spark shell.
 
@@ -72,6 +72,15 @@ included. e.g.
 
 StartSparkShell takes extra options for the spark shell call.
 
-## Miscellaneous
+## Miscellaneous - Issues
 
 * Using mintty terminal with cygwin, selecting option "backspace sends ^H" in keys might be necessary
+
+* There is a problem with case classes in Scala repl that yield type mismatch errors when it shouldn't
+https://groups.google.com/forum/#!topic/scala-user/lmpM74EWB3E
+https://community.cloudera.com/t5/Advanced-Analytics-Apache-Spark/Simple-Scala-code-not-working-in-Spark-shell-repl/td-p/16564
+For completeness, the following keyword-related issue is supposed to be fixed
+https://issues.apache.org/jira/browse/SPARK-1199
+I asked a question about it here
+http://stackoverflow.com/questions/29768717/type-mismatch-with-identical-types-in-spark-shell
+it seems that a solution is to send case class statement in isolated :paste environment

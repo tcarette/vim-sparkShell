@@ -19,13 +19,13 @@ function! StartSparkShell(extraSparkShellArgs)
     let jarsList = join(split(globpath(g:jarDir,'*.jar'),'\n'),',') 
     if (jarsList != "")
       if executable("cygpath")
-	      let jarIncl="--jars " . join(map(split(globpath(g:jarDir,'*.jar'),'\n'),'"/cygwin64" . v:val'),',')
+	      let jarIncl=" --jars " . join(map(split(globpath(g:jarDir,'*.jar'),'\n'),'"/cygwin64" . v:val'),',')
       else
-	      let jarIncl="--jars " . join(split(globpath(g:jarDir,'*.jar'),'\n'),',') 
+	      let jarIncl=" --jars " . join(split(globpath(g:jarDir,'*.jar'),'\n'),',') 
       endif
     endif
 	endif
-	let sparkCall = g:sparkHome . "/bin/spark-shell " . jarIncl . " " . a:extraSparkShellArgs
+	let sparkCall = g:sparkShellPath . jarIncl . " " . a:extraSparkShellArgs
 
 	" open terminal and google chrome / gnome and osx
   if g:inTmux
@@ -91,7 +91,7 @@ endfunction
 function! SparkShellSendMultiLine() range
   call SparkShellEnterPasteEnv()
   for ind in range(a:firstline,a:lastline)
-    let line=getline(ind)
+    let line = substitute(escape(escape(escape(getline(ind),'\'),'$'),'`'),"\t","  ","")
     if len(line) > 0
       " stupid way of getting first non-white space character of the line
       if split(line)[0][0]!~'/\|*'
@@ -109,7 +109,8 @@ endfunction
 
 function! SparkShellSendLine()
 	if g:inTmux
-	  call VimuxRunCommand(getline('.'))
+    let line = substitute(escape(escape(escape(getline('.'),'\'),'$'),'`'),"\t","  ","")
+	  call VimuxRunCommand(line)
 	else
     call Twrite 0
   endif
@@ -124,9 +125,12 @@ function! SparkShellSendKey(key)
 endfunction
 
 function! StopSparkShell()
+  call SparkShellExitPasteEnv()
 	if g:inTmux
+    call VimuxRunCommand("C-d")
 	  call VimuxCloseRunner()
 	else
+    call tbone#send_keys("0", "C-d")
     call system("tmux kill-session -t " . g:tmuxsname)
   endif
 endfunction
