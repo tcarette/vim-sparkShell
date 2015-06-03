@@ -17,13 +17,9 @@ Note: these are my first vimscript lines and I just discovered tmux...
 * vim-tbone of Tim Pope or [vimux](https://github.com/benmills/vimux.git).
 * google-chrome (hardcoded in StartSparkShell for opening the jobs)
 
-Tested only with gvim. Note that the use of `gnome-terminal` is also
-hard-coded in the plugin. This can be changed by putting and editing the
-following variable definition in your vimrc
+It has been tested with macvim, gvim, and vim under cygwin (embedded in tmux), but it might require some tweaking in your vimrc (see below).
 
-    let g:termcmd   = "gnome-terminal --title Spark-shell -e"
-
-Extra tip: I forked the [vim-scaladoc](https://github.com/mdreves/vim-scaladoc) of [mdreves](https://github.com/mdreves) to include Spark's scala doc in the index ([here](https://github.com/tcarette/vim-scaladoc))
+Extra tip: I forked the [vim-scaladoc](https://github.com/mdreves/vim-scaladoc) of [mdreves](https://github.com/mdreves) to include Spark's scala doc in the index ([here](https://github.com/tcarette/vim-scaladoc)). Then of course, ctags is awesome.
 
 ## Installation and usage
 
@@ -69,7 +65,9 @@ included. e.g.
 		vmap <seeObjectUnderCursor>    y:call SparkShellSendKey(substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
 
 
-StartSparkShell takes extra options for the spark shell call.
+StartSparkShell takes extra options for the spark shell call, e.g.
+
+		let g:sparkOptions = "--master local[2]"
 
 ## Miscellaneous - Issues
 
