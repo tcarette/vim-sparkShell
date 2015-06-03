@@ -1,7 +1,7 @@
 # vim-sparkShell
 
 This is a very first, basic step for integrating the spark shell with vim.
-So far it allows to start a spark shell in tmux, then vim-tbone is used to
+So far it allows to start a spark shell in tmux, then vim-tbone or vimux is used to
 send lines to it. There are also functions to enter and exit paste mode.
 
 It's just the minimum for what I wanted. I don't know how far it will
