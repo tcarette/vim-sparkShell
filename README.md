@@ -8,18 +8,18 @@ It's just the minimum for what I wanted. I don't know how far it will
 evolve but I thought that maybe somebody might already think it's useful,
 as I am.
 
-Note: these are my first vimscript lines and I just discovered tmux...
+Disclaimer: these are my first vimscript lines and I just discovered tmux...
 
 ## Dependencies
 
-* tmux         (tested with version 1.9)
-* spark-shell  (tested with version 1.2.0)
+* tmux         (tested with version 1.9, fails with 1.6)
+* spark-shell
 * vim-tbone of Tim Pope or [vimux](https://github.com/benmills/vimux.git).
-* google-chrome (hardcoded in StartSparkShell for opening the jobs)
+* google-chrome (hardcoded in StartSparkShell for opening the UI when not in tmux...)
 
 It has been tested with macvim, gvim, and vim under cygwin (embedded in tmux), but it might require some tweaking in your vimrc (see below).
 
-Extra tip: I forked the [vim-scaladoc](https://github.com/mdreves/vim-scaladoc) of [mdreves](https://github.com/mdreves) to include Spark's scala doc in the index ([here](https://github.com/tcarette/vim-scaladoc)). Then of course, ctags is awesome.
+Extra tip: I forked the [vim-scaladoc](https://github.com/mdreves/vim-scaladoc) of [mdreves](https://github.com/mdreves) to include Spark's scala doc in the index ([here](https://github.com/tcarette/vim-scaladoc)). And of course, ctags is awesome.
 
 ## Installation and usage
 
