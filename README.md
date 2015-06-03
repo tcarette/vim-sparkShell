@@ -14,8 +14,7 @@ Note: these are my first vimscript lines and I just discovered tmux...
 
 * tmux         (tested with version 1.9)
 * spark-shell  (tested with version 1.2.0)
-* vim-tbone of Tim Pope or [vimux](https://github.com/benmills/vimux.git). In a quick and dirty impulse, I [forked](https://github.com/tcarette/vim-tbone)
-tbone to add a carriage return to lines sent to the shell.
+* vim-tbone of Tim Pope or [vimux](https://github.com/benmills/vimux.git).
 * google-chrome (hardcoded in StartSparkShell for opening the jobs)
 
 Tested only with gvim. Note that the use of `gnome-terminal` is also

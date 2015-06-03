@@ -98,7 +98,7 @@ function! SparkShellSendMultiLine() range
 		    if g:inTmux
 		      call VimuxRunCommand(line)
 		    else
-          execute "silent" ind "Twrite 0"
+          call tbone#send_keys("0",line."\r")
         endif
       endif
     endif
@@ -108,11 +108,11 @@ function! SparkShellSendMultiLine() range
 endfunction
 
 function! SparkShellSendLine()
+  let line = substitute(escape(escape(escape(getline('.'),'\'),'$'),'`'),"\t","  ","")
 	if g:inTmux
-    let line = substitute(escape(escape(escape(getline('.'),'\'),'$'),'`'),"\t","  ","")
 	  call VimuxRunCommand(line)
 	else
-    call Twrite 0
+    call tbone#send_keys("0",line."\r")
   endif
 endfunction
 
