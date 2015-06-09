@@ -1,6 +1,6 @@
 # vim-sparkShell
 
-This is a very first, basic step for integrating the spark shell with vim.
+This is a very first, basic step for integrating the spark shell (or pyspark) with vim.
 So far it allows to start a spark shell in tmux, then vim-tbone or vimux is used to
 send lines to it. There are also functions to enter and exit paste mode.
 
@@ -13,7 +13,7 @@ Disclaimer: these are my first vimscript lines and I just discovered tmux...
 ## Dependencies
 
 * tmux         (tested with version 1.9, fails with 1.6)
-* spark-shell
+* spark-shell, pyspark
 * vim-tbone of Tim Pope or [vimux](https://github.com/benmills/vimux.git).
 * google-chrome (hardcoded in StartSparkShell for opening the UI when not in tmux...)
 
@@ -45,7 +45,15 @@ included. e.g.
 
     let g:inTmux         = 1
 
+* To work with pyspark, define
+
+    let g:pysparkMode = 1
+
+The only difference is that it bypass anythong to do with the spark-shell paste environment
+
 * Useful mappings
+
+The following mappings work for pyspark and spark-shell
 
 		map <startMap>                  :call StartSparkShell("")<CR>
 		map <enter paste>               :call SparkShellEnterPasteEnv()<CR>
@@ -59,11 +67,17 @@ included. e.g.
 		vmap <sendSelectionPerChar>    y:call SparkShellSendKey(substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
 		vmap <sendSelectionPerLine>     :call SparkShellSendMultiLine() <CR>
 
-		nmap <countObjectUnderCursor>   :call SparkShellSendKey("<C-R><C-W>.count\r")<CR><Esc>
-		nmap <take5ObjectUnderCursor>   :call SparkShellSendKey("<C-R><C-W>.take(5).foreach(println)\r")<CR><Esc>
+		nmap <countObjectUnderCursor>   :call SparkShellSendKey("<C-R><C-W>.count()\r")<CR><Esc>
 		nmap <seeObjectUnderCursor>     :call SparkShellSendKey("<C-R><C-W>\r")<CR><Esc>
 		vmap <seeObjectUnderCursor>    y:call SparkShellSendKey(substitute('<C-R>0',"\"","\\\"","")."\r")<CR>
 
+The following is specific to scala (autocmd FileType scala <...>)
+
+		nmap <take5ObjectUnderCursor>   :call SparkShellSendKey("<C-R><C-W>.take(5).foreach(println)\r")<CR><Esc>
+
+and this one does the same thing in pyspark
+
+		nmap <take5ObjectUnderCursor>   :call SparkShellSendKey("for e in <C-R><C-W>.take(5) : print(e)\r\r")<CR><Esc>
 
 StartSparkShell takes extra options for the spark shell call, e.g.
 

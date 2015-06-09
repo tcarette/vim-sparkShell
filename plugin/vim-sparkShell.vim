@@ -63,7 +63,7 @@ function! StartSparkShell(extraSparkShellArgs)
 endfunction
 
 function! SparkShellEnterPasteEnv()
-  if g:inPasteMode == 0
+  if !g:inPasteMode && !g:pysparkMode
     let g:inPasteMode = 1
     if g:inTmux
       call VimuxRunCommand(":paste\r")
@@ -75,15 +75,13 @@ function! SparkShellEnterPasteEnv()
 endfunction
 
 function! SparkShellExitPasteEnv()
-  if g:inPasteMode == 1
+  if g:inPasteMode && !g:pysparkMode
     if g:inTmux
       call VimuxRunCommand("C-d")
     else
       call tbone#send_keys("0", "C-d")
     endif
     let g:inPasteMode = 0
-  else
-    echom "Not in paste mode"
   endif
   return
 endfunction
