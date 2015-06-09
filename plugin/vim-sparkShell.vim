@@ -45,7 +45,7 @@ function! StartSparkShell(extraSparkShellArgs)
 		  if !exists("g:termcmd")
 		    let g:termcmd   = "gnome-terminal --title Spark-shell -e \"" . tmuxCall . "\""
 		  endif
-		  let s:openchrome = "& google-chrome --app=http://localhost:4040/"
+		  let s:openchrome = "& google-chrome --app=http://localhost:4040/ &"
 		endif
 	  " Start spark shell in tmux
 	  let opencmd   = g:termcmd . " " . s:openchrome
