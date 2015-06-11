@@ -96,7 +96,7 @@ function! SparkShellSendMultiLine() range
     endif
     if len(sline) > 0
       " stupid way of getting first non-white space character of the line
-      if sline[0][0] !~ '/\|*|#'
+      if sline[0][0] !~ '/\|*\|#'
         if g:inTmux
           call VimuxRunCommand(line)
         else
