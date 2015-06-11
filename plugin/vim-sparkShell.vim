@@ -90,12 +90,16 @@ function! SparkShellSendMultiLine() range
   call SparkShellEnterPasteEnv()
   for ind in range(a:firstline,a:lastline)
     let line = substitute(escape(escape(getline(ind),'\'),'`'),"\t","  ","")
-    if len(line) > 0
+    let sline = split(line)
+    if g:pysparkMode
+      let sline = sline + ['']
+    endif
+    if len(sline) > 0
       " stupid way of getting first non-white space character of the line
-      if split(line)[0][0]!~'/\|*'
-		    if g:inTmux
-		      call VimuxRunCommand(line)
-		    else
+      if sline[0][0] !~ '/\|*|#'
+        if g:inTmux
+          call VimuxRunCommand(line)
+        else
           call tbone#send_keys("0",line."\r")
         endif
       endif
