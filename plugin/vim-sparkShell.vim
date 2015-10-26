@@ -89,7 +89,7 @@ endfunction
 function! SparkShellSendMultiLine() range
   call SparkShellEnterPasteEnv()
   for ind in range(a:firstline,a:lastline)
-    let line = substitute(escape(escape(getline(ind),'\'),'`'),"\t","  ","")
+    let line = substitute(substitute(escape(escape(getline(ind),'\'),'`'),"\t","  ",'g')," *$","",'g')
     if len(line) > 0
       " stupid way of getting first non-white space character of the line
       if split(line)[0][0]!~'/\|*'
@@ -106,7 +106,7 @@ function! SparkShellSendMultiLine() range
 endfunction
 
 function! SparkShellSendLine()
-  let line = substitute(escape(escape(getline('.'),'\'),'`'),"\t","  ","")
+  let line = substitute(substitute(escape(escape(getline('.'),'\'),'`'),"\t","  ",'g')," *$","",'g')
 	if g:inTmux
 	  call VimuxRunCommand(line)
 	else
