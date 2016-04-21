@@ -95,3 +95,7 @@ https://issues.apache.org/jira/browse/SPARK-1199
 I asked a question about it here
 http://stackoverflow.com/questions/29768717/type-mismatch-with-identical-types-in-spark-shell
 it seems that a solution is to send case class statement in isolated :paste environment
+
+* In cygwin, sending keys to another tmux pane is very slow. If anybody has a suggestion...
+cf. http://unix.stackexchange.com/questions/277856/send-keys-across-tmux-panes-in-vim-in-cygwin-is-painfully-slow
+(and it is not this issue: http://superuser.com/questions/252214/slight-delay-when-switching-modes-in-vim-using-tmux-or-screen)
