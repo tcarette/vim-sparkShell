@@ -15,7 +15,6 @@ Disclaimer: these are my first vimscript lines and I just discovered tmux...
 * tmux         (tested with version 1.9, fails with 1.6)
 * spark-shell, pyspark
 * vim-tbone of Tim Pope or [vimux](https://github.com/benmills/vimux.git).
-* google-chrome (hardcoded in StartSparkShell for opening the UI when not in tmux...)
 
 It has been tested with macvim, gvim, and vim under cygwin (embedded in tmux), but it might require some tweaking in your vimrc (see below).
 
